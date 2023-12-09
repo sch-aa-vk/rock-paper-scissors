@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --color-dark-1: #03045e;
+  --color-dark-2: #2100c4;
+  --color-light-1: #0277b6;
+  --color-light-2: #00b4d8;
+  --color-light-3: #90e0ef;
+  --color-light-4: #c9f0f8;
+  --font-family-main: 'Wix Madefor Display', sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  text-decoration: none;
+  list-style-type: none;
+}
+
+.header {
+  width: 100%;
+  height: 60px;  
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-light-4);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-image {
+  height: 40px;
+}
+
+.logo-text {
+  font-family: var(--font-family-main);
+  font-weight: var(--font-weight-bold);
+  font-size: 24px;
+  color: var(--color-dark-2);
+  transition: all 0.2s linear;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navigator-link {
+  font-family: var(--font-family-main);
+  font-weight: var(--font-weight-semibold);
+  font-size: 18px;
+  color: var(--color-dark-2);
+  transition: all 0.2s linear;
+}
+
+.navigator-link:hover,
+.logo-text:hover {
+  color: var(--color-dark-1);
+}
