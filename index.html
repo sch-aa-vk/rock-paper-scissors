@@ -18,6 +18,17 @@
       <a class="navigator-link" href="./scoreboard.html">Scoreboard</a>
     </div>
   </header>
-  <script src="index.js"></script>
+  <div>
+    <button id='playButton'>Start Game</button>
+    <label for="gameType">Choose a game:</label>
+    <select id="gameType" name="gameType">
+      <option value="Classic">Classic</option>
+      <option value="BBT">BBT</option>
+      <option value="WithWell">With Well</option>
+    </select>
+  </div>
+  <div class="cards">
+  </div>
+  <script type='module' src="./index.js"></script>
 </body>
 </html>
