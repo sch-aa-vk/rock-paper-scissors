@@ -64,37 +64,37 @@ class Figure{
 
 class Paper extends Figure{
     constructor(){
-        super("Paper", '../assets/favicon.png')
+        super("Paper", '../assets/paper.png')
     }
 }
 
 class Rock extends Figure{
     constructor(){
-        super("Rock", "../assets/favicon.png")
+        super("Rock", "../assets/rock.png")
     }
 }
 
 class Scissors extends Figure{
     constructor(){
-        super("Scissor", "../assets/favicon.png")
+        super("Scissor", "../assets/scissors.png")
     }
 }
 
 class Well extends Figure{
     constructor(){
-        super("Well", "../assets/favicon.png")
+        super("Well", "../assets/well.png")
     }
 }
 
 class Spock extends Figure{
     constructor(){
-        super("Spock", "../assets/favicon.png")
+        super("Spock", "../assets/spock.png")
     }
 }
 
 class Lizard extends Figure{
     constructor(){
-        super("Lizard", "../assets/favicon.png")
+        super("Lizard", "../assets/lizard.png")
     }
 }
 
