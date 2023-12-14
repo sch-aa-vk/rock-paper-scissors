@@ -160,8 +160,7 @@ class BBTGameStrategy extends GameStrategy {
             (playerFigure === "Paper" && (opponentFigure === "Rock" || opponentFigure === "Spock")) ||
             (playerFigure === "Scissors" && (opponentFigure === "Paper" || opponentFigure === "Lizard")) ||
             (playerFigure === "Lizard" && (opponentFigure === "Spock" || opponentFigure === "Paper")) ||
-            (playerFigure === "Spock" && (opponentFigure === "Scissors" || opponentFigure === "Rock")) ||
-            (playerFigure === "Well" && (opponentFigure === "Rock" || opponentFigure === "Scissors")) 
+            (playerFigure === "Spock" && (opponentFigure === "Scissors" || opponentFigure === "Rock"))
         ) {
             return "You win!";
         } else {
