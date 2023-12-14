@@ -1,6 +1,6 @@
 // import {ClassicGameFactory} from './Factories/ClassicGameFactory'
 
-
+const availableFigures = ["Rock", "Paper", "Scissors", "Well", "Spock", "Lizard"];
 
 function play(){
     let gameType = document.getElementById('gameType');
@@ -41,6 +41,10 @@ function showCards(figures) {
             <p>Name: ${figure.getName()}</p>
             <img src="${figure.getImage()}" alt="${figure.getName()}">
         `;
+        figureCard.onclick = function() {
+            GamePlay(figure.getName());
+        };
+
         cardsContainer.appendChild(figureCard);
     });
 }
@@ -125,4 +129,112 @@ class WithWell_GameFactory extends FigureFactory{
         return [new Rock(), new Paper(), new Scissors(), new Well()]
     }  
 }
+
+
+class GameStrategy {
+    determineWinner(playerFigure, opponentFigure) {}
+}
+
+class ClassicGameStrategy extends GameStrategy {
+    determineWinner(playerFigure, opponentFigure) {
+        if (playerFigure === opponentFigure) {
+            return "It's a tie!";
+        } else if (
+            (playerFigure === "Rock" && opponentFigure === "Scissors") ||
+            (playerFigure === "Paper" && opponentFigure === "Rock") ||
+            (playerFigure === "Scissors" && opponentFigure === "Paper")
+        ) {
+            return "You win!";
+        } else {
+            return "You lose!";
+        }
+    }
+}
+
+class BBTGameStrategy extends GameStrategy {
+    determineWinner(playerFigure, opponentFigure) {
+        if (playerFigure === opponentFigure) {
+            return "It's a tie!";
+        } else if (
+            (playerFigure === "Rock" && (opponentFigure === "Scissors" || opponentFigure === "Lizard")) ||
+            (playerFigure === "Paper" && (opponentFigure === "Rock" || opponentFigure === "Spock")) ||
+            (playerFigure === "Scissors" && (opponentFigure === "Paper" || opponentFigure === "Lizard")) ||
+            (playerFigure === "Lizard" && (opponentFigure === "Spock" || opponentFigure === "Paper")) ||
+            (playerFigure === "Spock" && (opponentFigure === "Scissors" || opponentFigure === "Rock"))
+        ) {
+            return "You win!";
+        } else {
+            return "You lose!";
+        }
+    }
+}
+
+class WithWellGameStrategy extends GameStrategy {
+    determineWinner(playerFigure, opponentFigure) {
+        if (playerFigure === opponentFigure) {
+            return "It's a tie!";
+        } else if (
+            (playerFigure === "Rock" && (opponentFigure === "Scissors")) ||
+            (playerFigure === "Paper" && (opponentFigure === "Rock" )) ||
+            (playerFigure === "Scissors" && (opponentFigure === "Paper")) ||
+            (playerFigure === "Well" && (opponentFigure === "Rock" || opponentFigure === "Scissors")) 
+        ) {
+            return "You win!";
+        } else {
+            return "You lose!";
+        }
+    }   
+}
+
+function getRandomInt(min, max) {
+    let k = Math.floor(Math.random() * (max - min + 1));
+    if(gameType.value == 'BBT' && k == 3){
+        return getRandomInt(min, max);
+    }
+    return k;
+}
+  
+function computerRandomChoice(size) {
+    const randomIndex = getRandomInt(0, size - 1);
+    return availableFigures[randomIndex];
+}
+  
+function GamePlay(selectedCard) {
+    let gameType = document.getElementById('gameType');
+    let gameStrategy;
+    let size;
+    switch (gameType.value) {
+        case 'Classic':
+            gameStrategy = new ClassicGameStrategy(); 
+            size = 3;
+            break;
+        case 'BBT':
+            gameStrategy = new BBTGameStrategy(); 
+            size = 6;
+            break;
+        case 'WithWell':
+            gameStrategy = new WithWellGameStrategy(); 
+            size = 4;
+            break;
+        default:
+            console.log("Invalid game type");
+    }
+    const playerFigure = selectedCard;
+    const opponentFigure = computerRandomChoice(size,gameType.value);
+    console.log(selectedCard + opponentFigure);
+    const result = gameStrategy.determineWinner(playerFigure, opponentFigure);
+
+    console.log(result);
+}
+
+
+
+
+
+
+
+
+
+
+
 
