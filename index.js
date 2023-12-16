@@ -1,57 +1,6 @@
-// import {ClassicGameFactory} from './Factories/ClassicGameFactory'
-
 const availableFigures = ["Rock", "Paper", "Scissors", "Well", "Spock", "Lizard"];
 
-function play(){
-    let gameType = document.getElementById('gameType');
-    let figureFactory
-
-    switch(gameType.value){
-        case 'Classic':
-            figureFactory = new ClassicGameFactory()
-            break
-        case 'BBT':
-            figureFactory = new BBT_GameFactory()
-            break
-        case 'WithWell':
-            figureFactory = new WithWell_GameFactory()
-            break
-        default:
-            console.log("Invalid game type");
-    }
-
-    let figures = figureFactory.createFigures()
-    console.log(figures);
-    showCards(figures)
-}
-
-const playButton = document. getElementById('playButton');
-playButton.addEventListener('click', play)
-
-
-
-function showCards(figures) {
-    const cardsContainer = document.querySelector('.cards');
-    cardsContainer.innerHTML = '';
-
-    figures.forEach(figure => {
-        const figureCard = document.createElement('div');
-        figureCard.className = 'card';
-        figureCard.innerHTML = `
-            <p>Name: ${figure.getName()}</p>
-            <img src="${figure.getImage()}" alt="${figure.getName()}">
-        `;
-        figureCard.onclick = function() {
-            GamePlay(figure.getName());
-        };
-
-        cardsContainer.appendChild(figureCard);
-    });
-}
-
-
-
-//Figures
+// -- Figures -- //
 class Figure{
     constructor(name, image){
         this.name = name;
@@ -80,7 +29,7 @@ class Rock extends Figure{
 
 class Scissors extends Figure{
     constructor(){
-        super("Scissor", "../assets/scissors.png")
+        super("Scissors", "../assets/scissors.png")
     }
 }
 
@@ -102,10 +51,7 @@ class Lizard extends Figure{
     }
 }
 
-
-
-
-//Factories
+// -- Factories -- //
 class FigureFactory {
     createFigures(){
         return []
@@ -118,19 +64,19 @@ class ClassicGameFactory extends FigureFactory{
     }    
 }
 
-class BBT_GameFactory extends FigureFactory{
+class BBTGameFactory extends FigureFactory{
     createFigures(){
         return [new Rock(), new Paper(), new Scissors(), new Lizard(), new Spock()]
     }  
 }
-//Temp name, pomenyaem potom
-class WithWell_GameFactory extends FigureFactory{
+
+class WithWellGameFactory extends FigureFactory{
     createFigures(){
         return [new Rock(), new Paper(), new Scissors(), new Well()]
     }  
 }
 
-
+// -- Strategies -- //
 class GameStrategy {
     determineWinner(playerFigure, opponentFigure) {}
 }
@@ -186,6 +132,7 @@ class WithWellGameStrategy extends GameStrategy {
     }   
 }
 
+// -- Helpers -- //
 function getRandomInt(min, max) {
     let k = Math.floor(Math.random() * (max - min + 1));
     if(gameType.value == 'BBT' && k == 3){
@@ -198,43 +145,98 @@ function computerRandomChoice(size) {
     const randomIndex = getRandomInt(0, size - 1);
     return availableFigures[randomIndex];
 }
-  
-function GamePlay(selectedCard) {
-    let gameType = document.getElementById('gameType');
-    let gameStrategy;
-    let size;
-    switch (gameType.value) {
-        case 'Classic':
-            gameStrategy = new ClassicGameStrategy(); 
-            size = 3;
-            break;
-        case 'BBT':
-            gameStrategy = new BBTGameStrategy(); 
-            size = 6;
-            break;
-        case 'WithWell':
-            gameStrategy = new WithWellGameStrategy(); 
-            size = 4;
-            break;
-        default:
-            console.log("Invalid game type");
-    }
-    const playerFigure = selectedCard;
-    const opponentFigure = computerRandomChoice(size,gameType.value);
-    console.log(selectedCard + opponentFigure);
-    const result = gameStrategy.determineWinner(playerFigure, opponentFigure);
 
-    console.log(result);
+const GameStrategies = {
+    'Classic': {
+        strategy: new ClassicGameStrategy(),
+        size: 3,
+    },
+    'BBT': {
+        strategy: new BBTGameStrategy(),
+        size: 6,
+    },
+    'WithWell': {
+        strategy: new WithWellGameStrategy(),
+        size: 4,
+    },
 }
 
+const GameFactories = {
+    'Classic': new ClassicGameFactory(),
+    'BBT': new BBTGameFactory(),
+    'WithWell': new WithWellGameFactory(),
+}
 
+// -- Gameplay -- //
+class GamePlay {
+    constructor(gameStrategy) {
+        this.gameStrategy = gameStrategy;
+    }
 
+    play(selectedCard, size) {
+        const playerFigure = selectedCard;
+        const opponentFigure = computerRandomChoice(size);
+        const result = this.gameStrategy.determineWinner(playerFigure, opponentFigure);
 
+        console.log('!!!!!!', playerFigure, opponentFigure);
+        console.log('!!!!!! result', result);
+        return { playerFigure, opponentFigure, result };
+    }
 
+}
 
+class GamePlayProxy {
+    constructor(gameStrategy) {
+        this.realGamePlay = new GamePlay(gameStrategy);
+    }
 
+    play(selectedCard, size) {
+        const { playerFigure, opponentFigure, result } = this.realGamePlay.play(selectedCard, size);
 
+        const gameData = {
+            playerFigure,
+            opponentFigure,
+            result,
+            timestamp: new Date().toISOString(),
+        };
 
+        const existingGameHistory = JSON.parse(localStorage.getItem('gameHistory')) || [];
 
+        existingGameHistory.push(gameData);
 
+        localStorage.setItem('gameHistory', JSON.stringify(existingGameHistory));
+    }
+}
 
+function showCards(figures) {
+    const cardsContainer = document.querySelector('.cards');
+    cardsContainer.innerHTML = '';
+
+    figures.forEach(figure => {
+        const figureCard = document.createElement('div');
+        figureCard.className = 'card';
+        figureCard.innerHTML = `
+            <p>Name: ${figure.getName()}</p>
+            <img src="${figure.getImage()}" alt="${figure.getName()}">
+        `;
+        figureCard.addEventListener('click', () => {
+            const gameType = document.getElementById('gameType');
+            const gameStrategy = GameStrategies[gameType.value];
+
+            new GamePlayProxy(gameStrategy.strategy).play(figure.getName(), gameStrategy.size);
+        })
+
+        cardsContainer.appendChild(figureCard);
+    });
+}
+
+function createCards() {
+    const gameType = document.getElementById('gameType');
+    const figureFactory = GameFactories[gameType.value] ?? undefined;
+
+    const figures = figureFactory.createFigures();
+    showCards(figures)
+}
+
+const playButton = document. getElementById('playButton');
+playButton.addEventListener('click', createCards);
