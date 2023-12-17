@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,28 +8,33 @@
   <link rel="stylesheet" href="./style.css">
   <title>Game</title>
 </head>
+
 <body>
-  <header class="header">
-    <div class="logo-container">
-      <a href="./"><img class="logo-image" src="./assets/favicon.png" alt="logo"></a>
-      <a class="logo-text" href="./">Rock-Paper-Scissors</a>
+    <header class="header">
+        <div class="logo-container">
+          <a href="./"><img class="logo-image" src="./assets/favicon.png" alt="logo"></a>
+          <a class="logo-text" href="./">Rock-Paper-Scissors</a>
+        </div>
+        <div class="navigation">
+          <a class="navigator-link" href="./">Game</a>
+          <a class="navigator-link" href="./scoreboard.html">Scoreboard</a>
+        </div>
+      </header>
+  <div class="content-container">
+    <div class="options-panel">
+      <label for="gameType">Choose a game:</label>
+      <select id="gameType" name="gameType">
+        <option value="Classic">Classic</option>
+        <option value="BBT">BBT</option>
+        <option value="WithWell">With Well</option>
+      </select>
+      <button id='playButton'>Start Game</button>
     </div>
-    <div class="navigation">
-      <a class="navigator-link" href="./">Game</a>
-      <a class="navigator-link" href="./scoreboard.html">Scoreboard</a>
+    <div class="cards">
+      <!-- Карточки будут появляться здесь -->
     </div>
-  </header>
-  <div>
-    <button id='playButton'>Start Game</button>
-    <label for="gameType">Choose a game:</label>
-    <select id="gameType" name="gameType">
-      <option value="Classic">Classic</option>
-      <option value="BBT">BBT</option>
-      <option value="WithWell">With Well</option>
-    </select>
-  </div>
-  <div class="cards">
   </div>
   <script type='module' src="./index.js"></script>
 </body>
+
 </html>
