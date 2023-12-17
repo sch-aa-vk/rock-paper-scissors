@@ -72,18 +72,25 @@
 }
 
 
-.card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px;
-    width: 150px;
-    height: 150px;
-    text-align: center;
+.content-container {
+    display: flex;
+    flex: 1;
+    flex-direction: row; 
+    padding: 20px;
 }
 
-.card img {
-    max-width: 100%;
-    max-height: 100%;
+
+.options-panel {
+    width: 20%;
+    height: 88vh;
+    padding: 20px;
+    background-color: #0277b6;
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 20px;
 }
 
 #playButton {
@@ -93,15 +100,46 @@
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
-    margin: 10px;
+    margin-top: 10px;
     cursor: pointer;
-  }
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+}
 
-  .cards {
+#gameType {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.cards {
+    background-color: var(--color-light-1);
+    flex: 1;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     padding: 20px;
+    max-height: 25vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    margin-top: 63vh; 
   }
+
+.card {
+    border: 1px solid #ccc;
+    color: white;
+    padding: 15px; 
+    margin: 10px 5px; 
+    width: 150px;
+    height: 150px;
+    text-align: center;
+}
+
+.card img {   
+    max-width: 100%;
+    max-height: 100%;
+}
