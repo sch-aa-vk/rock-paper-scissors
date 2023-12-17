@@ -7,6 +7,9 @@
   --color-light-2: #00b4d8;
   --color-light-3: #90e0ef;
   --color-light-4: #c9f0f8;
+  --border-color: #cccccc;
+  --light-text-color: #ffffff;
+  --dark-text-color: #000000;
   --font-family-main: 'Wix Madefor Display', sans-serif;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
@@ -26,12 +29,20 @@
 
 .header {
   width: 100%;
-  height: 60px;  
+  height: 60px;
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--color-light-4);
+  background-color: var(--color-light-1);
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    height: fit-content;
+    padding: 10px;
+  }
 }
 
 .logo-container {
@@ -48,7 +59,7 @@
   font-family: var(--font-family-main);
   font-weight: var(--font-weight-bold);
   font-size: 24px;
-  color: var(--color-dark-2);
+  color: var(--light-text-color);
   transition: all 0.2s linear;
 }
 
@@ -62,7 +73,7 @@
   font-family: var(--font-family-main);
   font-weight: var(--font-weight-semibold);
   font-size: 18px;
-  color: var(--color-dark-2);
+  color: var(--light-text-color);
   transition: all 0.2s linear;
 }
 
@@ -71,75 +82,143 @@
   color: var(--color-dark-1);
 }
 
-
 .content-container {
-    display: flex;
-    flex: 1;
-    flex-direction: row; 
-    padding: 20px;
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  gap: 20px;
+  width: 100%;
+  min-height: calc(100vh - 60px);
 }
 
+@media screen and (max-width: 1000px) {
+  .content-container {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .content-container {
+    padding: 10px;
+  }
+}
 
 .options-panel {
-    width: 20%;
-    height: 88vh;
-    padding: 20px;
-    background-color: #0277b6;
-    color: white;
-    border-radius: 10px;
-    display: flex;
+  padding: 20px;
+  background-color: var(--color-light-1);
+  color: var(--light-text-color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+  .options-panel {
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .options-panel {
     flex-direction: column;
-    align-items: flex-start;
-    margin-right: 20px;
+  }
 }
 
 #playButton {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    margin-top: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    display: block;
-    width: 100%;
+  background-color: #4CAF50;
+  border: none;
+  color: var(--light-text-color);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  display: block;
+  width: 200px;
 }
 
 #gameType {
-    width: 100%;
-    padding: 8px;
-    margin-top: 10px;
-    font-size: 16px;
-    border-radius: 5px;
+  width: 200px;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cards-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.playing-panel .card {
+  cursor: auto;
+  color: var(--dark-text-color);
+}
+
+.playing-panel {
+  width: 100%;
+  padding: 20px;
+  min-height: 300px;
+  flex: 2;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.game-cards {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 500px) {
+  .game-cards {
+    flex-direction: column;
+  }
 }
 
 .cards {
-    background-color: var(--color-light-1);
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
-    max-height: 25vh;
-    overflow-y: auto;
-    border-radius: 10px;
-    margin-top: 63vh; 
-  }
-
-.card {
-    border: 1px solid #ccc;
-    color: white;
-    padding: 15px; 
-    margin: 10px 5px; 
-    width: 150px;
-    height: 150px;
-    text-align: center;
+  background-color: var(--color-light-1);
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  height: fit-content;
 }
 
-.card img {   
-    max-width: 100%;
-    max-height: 100%;
+.card {
+  border: 1px solid var(--border-color);
+  color: var(--light-text-color);
+  border-radius: 10px;
+  padding: 15px;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.card img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#winnerText {
+  color: var(--color-light-1);
 }
