@@ -239,12 +239,15 @@ class GamePlayProxy {
       selectedCard,
       size
     );
+    const currentTime = new Date().toISOString();
+    const date = currentTime.split("T");
+    const time = date[1].split(".")[0];
 
     const gameData = {
       playerFigure,
       opponentFigure,
       result,
-      timestamp: new Date().toISOString(),
+      timestamp: `${date[0]} ${time}`,
     };
 
     const existingGameHistory =
