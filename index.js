@@ -27,37 +27,37 @@ class Figure {
 
 class Paper extends Figure {
   constructor() {
-    super("Paper", "../assets/paper.png");
+    super("Paper", "./assets/paper.png");
   }
 }
 
 class Rock extends Figure {
   constructor() {
-    super("Rock", "../assets/rock.png");
+    super("Rock", "./assets/rock.png");
   }
 }
 
 class Scissors extends Figure {
   constructor() {
-    super("Scissors", "../assets/scissors.png");
+    super("Scissors", "./assets/scissors.png");
   }
 }
 
 class Well extends Figure {
   constructor() {
-    super("Well", "../assets/well.png");
+    super("Well", "./assets/well.png");
   }
 }
 
 class Spock extends Figure {
   constructor() {
-    super("Spock", "../assets/spock.png");
+    super("Spock", "./assets/spock.png");
   }
 }
 
 class Lizard extends Figure {
   constructor() {
-    super("Lizard", "../assets/lizard.png");
+    super("Lizard", "./assets/lizard.png");
   }
 }
 
