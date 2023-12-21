@@ -248,3 +248,29 @@ th, td {
 th {
   background-color: var(--light-background-color);
 }
+
+.content-container1 {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.rules-panel {
+  line-height: 1.6;
+}
+
+h2, h3 {
+  color: #333;
+}
+
+h3 {
+  border-bottom: 2px solid #333;
+  padding-bottom: 5px;
+  margin-top: 20px;
+}
+
+strong {
+  color: #0066cc;
+}
