@@ -311,7 +311,7 @@ function playGame() {
 
   console.log(userCard);
   if (!userCard) {
-    gamePanel.innerHTML = "Plase select a card!";
+    gamePanel.innerHTML = "Please select a card!";
     return;
   }
   if (computerCardImage) {
